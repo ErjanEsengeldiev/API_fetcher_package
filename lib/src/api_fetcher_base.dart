@@ -21,8 +21,8 @@ class RestApi {
       case RequestMethod.post:
         final request = await client.postUrl(parsedUri);
 
-        request.headers
-            .add('Content-type', 'application/$format; charset=UTF-8');
+        _addHeaders(headers: headers, format: format, request: request);
+
         request.write(jsonEncode(parameters));
 
         final response = await request.close();
@@ -41,8 +41,7 @@ class RestApi {
       case RequestMethod.delete:
         final request = await client.deleteUrl(parsedUri);
 
-        request.headers
-            .add('Content-type', 'application/$format; charset=UTF-8');
+        _addHeaders(headers: headers, format: format, request: request);
 
         request.write(jsonEncode(parameters));
 
@@ -54,8 +53,7 @@ class RestApi {
       case RequestMethod.put:
         final request = await client.putUrl(parsedUri);
 
-        request.headers
-            .add('Content-type', 'application/$format; charset=UTF-8');
+        _addHeaders(headers: headers, format: format, request: request);
 
         request.write(jsonEncode(parameters));
 
@@ -63,6 +61,19 @@ class RestApi {
 
         _checkStatusCode(response.statusCode);
         break;
+    }
+  }
+
+  void _addHeaders(
+      {required List? headers,
+      required HttpClientRequest request,
+      required String format}) {
+    if (headers != null) {
+      for (var i = 0; i < headers.length; i++) {
+        request.headers.add(headers[i]["name"], headers[i]["value"]);
+      }
+    } else {
+      request.headers.add('Content-type', 'application/$format; charset=UTF-8');
     }
   }
 
