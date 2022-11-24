@@ -27,10 +27,21 @@ class RestApi {
 
         final response = await request.close();
 
-        if (response.statusCode != 200) {
-          throw Exception('error');
-        } else {
-          print('success');
+        switch (response.statusCode) {
+          case 200:
+            print('Все прошло удачно');
+            break;
+          case 500:
+            print('Произошла неизвестная ошибка');
+            throw Exception('statusCode 500');
+
+          case 400:
+            print('Данные не верны');
+            throw Exception('statusCode 400');
+
+          case 403:
+            print('У Вас нету доступа на данный сервис');
+            throw Exception('statusCode 403');
         }
 
         break;
@@ -39,14 +50,24 @@ class RestApi {
 
         final response = await request.close();
 
-        if (response.statusCode != 200) {
-          throw Exception('error');
-        } else {
-          print('success');
-          print('resault : $json');
-        }
+        switch (response.statusCode) {
+          case 200:
+            print('Все прошло удачно');
+            break;
+          case 500:
+            print('Произошла неизвестная ошибка');
+            throw Exception('statusCode 500');
 
+          case 400:
+            print('Данные не верны');
+            throw Exception('statusCode 400');
+
+          case 403:
+            print('У Вас нету доступа на данный сервис');
+            throw Exception('statusCode 403');
+        }
         break;
+
       case RequestMethod.delete:
         final request = await client.deleteUrl(parsedUri);
 
@@ -57,12 +78,24 @@ class RestApi {
 
         final response = await request.close();
 
-        if (response.statusCode != 200) {
-          throw Exception('error');
-        } else {
-          print('success');
+        switch (response.statusCode) {
+          case 200:
+            print('Все прошло удачно');
+            break;
+          case 500:
+            print('Произошла неизвестная ошибка');
+            throw Exception('statusCode 500');
+
+          case 400:
+            print('Данные не верны');
+            throw Exception('statusCode 400');
+
+          case 403:
+            print('У Вас нету доступа на данный сервис');
+            throw Exception('statusCode 403');
         }
         break;
+
       case RequestMethod.put:
         final request = await client.putUrl(parsedUri);
 
@@ -73,10 +106,21 @@ class RestApi {
 
         final response = await request.close();
 
-        if (response.statusCode != 200) {
-          throw Exception('error');
-        } else {
-          print('success');
+        switch (response.statusCode) {
+          case 200:
+            print('Все прошло удачно');
+            break;
+          case 500:
+            print('Произошла неизвестная ошибка');
+            throw Exception('statusCode 500');
+
+          case 400:
+            print('Данные не верны');
+            throw Exception('statusCode 400');
+
+          case 403:
+            print('У Вас нету доступа на данный сервис');
+            throw Exception('statusCode 403');
         }
         break;
     }
