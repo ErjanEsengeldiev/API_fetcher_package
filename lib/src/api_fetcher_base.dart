@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:api_fetcher/src/method_enums.dart';
 
 class RestApi {
-  static void sendRequest(
+  void sendRequest(
       {required String url,
       required RequestMethod method,
       Map<String, dynamic>? parameters,
@@ -27,22 +27,7 @@ class RestApi {
 
         final response = await request.close();
 
-        switch (response.statusCode) {
-          case 200:
-            print('Все прошло удачно');
-            break;
-          case 500:
-            print('Произошла неизвестная ошибка');
-            throw Exception('statusCode 500');
-
-          case 400:
-            print('Данные не верны');
-            throw Exception('statusCode 400');
-
-          case 403:
-            print('У Вас нету доступа на данный сервис');
-            throw Exception('statusCode 403');
-        }
+        _checkStatusCode(response.statusCode);
 
         break;
       case RequestMethod.get:
@@ -50,22 +35,7 @@ class RestApi {
 
         final response = await request.close();
 
-        switch (response.statusCode) {
-          case 200:
-            print('Все прошло удачно');
-            break;
-          case 500:
-            print('Произошла неизвестная ошибка');
-            throw Exception('statusCode 500');
-
-          case 400:
-            print('Данные не верны');
-            throw Exception('statusCode 400');
-
-          case 403:
-            print('У Вас нету доступа на данный сервис');
-            throw Exception('statusCode 403');
-        }
+        _checkStatusCode(response.statusCode);
         break;
 
       case RequestMethod.delete:
@@ -78,22 +48,7 @@ class RestApi {
 
         final response = await request.close();
 
-        switch (response.statusCode) {
-          case 200:
-            print('Все прошло удачно');
-            break;
-          case 500:
-            print('Произошла неизвестная ошибка');
-            throw Exception('statusCode 500');
-
-          case 400:
-            print('Данные не верны');
-            throw Exception('statusCode 400');
-
-          case 403:
-            print('У Вас нету доступа на данный сервис');
-            throw Exception('statusCode 403');
-        }
+        _checkStatusCode(response.statusCode);
         break;
 
       case RequestMethod.put:
@@ -106,23 +61,27 @@ class RestApi {
 
         final response = await request.close();
 
-        switch (response.statusCode) {
-          case 200:
-            print('Все прошло удачно');
-            break;
-          case 500:
-            print('Произошла неизвестная ошибка');
-            throw Exception('statusCode 500');
-
-          case 400:
-            print('Данные не верны');
-            throw Exception('statusCode 400');
-
-          case 403:
-            print('У Вас нету доступа на данный сервис');
-            throw Exception('statusCode 403');
-        }
+        _checkStatusCode(response.statusCode);
         break;
+    }
+  }
+
+  void _checkStatusCode(int statusCode) {
+    switch (statusCode) {
+      case 200:
+        print('Все прошло удачно');
+        break;
+      case 500:
+        print('Произошла неизвестная ошибка');
+        throw Exception('statusCode 500');
+
+      case 400:
+        print('Данные не верны');
+        throw Exception('statusCode 400');
+
+      case 403:
+        print('У Вас нету доступа на данный сервис');
+        throw Exception('statusCode 403');
     }
   }
 }
